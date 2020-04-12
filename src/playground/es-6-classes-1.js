@@ -22,8 +22,11 @@ class Student extends Person{
     }
     getDescription(){
         //return 'testing'
-        const description = super.getDescription()
-        return description
+        let description = super.getDescription()
+        //return description
+        if(this.hasMajor()){
+            description += `their major is ${this.major}.`
+        }
     }
 }
 

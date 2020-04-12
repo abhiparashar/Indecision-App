@@ -1,58 +1,97 @@
-console.log("App.js is runnig");
-
-var userDetails = {
-  title: "Abhishek Parashar",
-  subTitle: "info about Abhishek Parashar",
-  options:['one','two']
-};
-
-
-//JSX  - javascript xml
-var template = (
-  <div>
-    <h1>{userDetails.title}</h1>
-    {/* <p>{userDetails.subTitle}</p> */}
-    {userDetails.subTitle && <p>{userDetails.subTitle}</p>}
-    {userDetails.options.length > 0 ? "Here are your options" : "No Options"}
-    <ol>
-      <li>Item one</li>
-      <li>Item Two</li>
-    </ol>
-  </div>
-);
-
-var user = {
-    name:'andrew',
-    age : 17,
-    location:'philadelphia'
-}
-function getLocation(location) {
-  if (location) {
-    return <p>Location:{user.location}</p>;
-  } else {
-    return undefined;
+//Nested Components
+class IndecisionApp extends React.Component{
+  render(){
+    const title = "Indecision App"
+    const subtitle = "Don't Put your life in the hands of your computer"
+    const options = ['Option One','Option Two','Option Three']
+    return(
+      <div>
+        <Header title={title} subtitle={subtitle} />
+        <Action />
+        <Options options={options}/>
+        <AddOptions />
+      </div>
+    )
   }
 }
 
-var userName = 'mike'
-var userAge = 29;
-var userLocation = 'NewYork'
-var templateTwo = (
-  <div>
-    {/* <h1>{userName.toUpperCase()}</h1> */}
-    {/* <h1>{user.name}</h1> */}
-    <h1>{user.name ? user.name : "Anonymous"}</h1>
+class Header extends React.Component {
+  render() {
+    return(
+      <div>
+        <h1>{this.props.title}</h1>
+        <h2>{this.props.subtitle}</h2>
+      </div>
+    )
+  }
+}
 
-    {/* <p>Age-{userAge}</p> */}
-    {/* <p>Age-{user.age}</p> */}
-    {user.age>=18 && <p>age: {user.age}</p>}
-    {/* <p>Location - {userLocation}</p> */}
-    {/* <p>Location - {user.Location}</p> */}
-    {/* <p>Location - {getLocation(user.Location)}</p> */}
-    {getLocation(user.location)};
-  </div>
-);
+class Action extends React.Component{
+  handlePick(){
+    alert('HandlePick')
+  }
+  render(){
+    return(
+      <div>
+        <button onClick={this.handlePick}>What should I do ?</button>
+      </div>
+    )
+  }
+}
 
-var appRoot = document.getElementById("app");
+class Options extends React.Component{
+  removeAll(){
+    alert('Remove all ')
+  }
+  render(){
+    return(
+      <div>
+        <button onClick={this.removeAll}>Remove All</button>
+        {this.props.options.map((option) => <p key={option} optionText={option}>{option}</p>)}
+        <OptionOne/>
+      </div>
+    )
+  }
+}
 
-ReactDOM.render(template, appRoot);
+class OptionOne extends React.Component{
+  render(){
+    return(
+      // <div>Options Component Here</div>
+      <div>
+       Option: {this.props.optionText}
+      </div>
+    )
+  }
+}
+
+class AddOptions extends React.Component{
+  handleAddOption(e){
+    e.preventDefault()
+    const option = e.target.elements.option.value
+    if(option){
+      alert(option)
+    }
+  }
+  render(){
+      return(
+        <div>
+          <form onClick={this.handleAddOption}> 
+            <input type="text" name="option" />
+            <button>Add Option</button>
+          </form>
+        </div>
+      )
+  }
+}
+// const jsx = (
+//   <div>
+//     <Header />
+//     <Action/>
+//     <Options/>
+//     <AddOptions/>
+//   </div>
+// )
+
+// ReactDOM.render(jsx, document.getElementById('app'))
+ReactDOM.render(<IndecisionApp/>,document.getElementById('app'))
