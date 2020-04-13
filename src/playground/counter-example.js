@@ -4,20 +4,33 @@ class Counter extends React.Component{
         this.addClickOne = this.addClickOne.bind(this)
         this.minusClickOne = this.minusClickOne.bind(this)
         this.reset = this.reset.bind(this)
+        this.state = {
+            count:0
+        }
     }
     addClickOne(){
-        console.log('add click One')
+        this.setState((prevState)=>{
+            return{
+                count: prevState.count+1
+            }
+        })
     }
     minusClickOne(){
-        console.log('Minus Click One')
+        this.setState((prevState)=>{
+            return {count: prevState.count-1}
+        })
     }
     reset(){
-        console.log('Reset')
+        this.setState(()=>{
+            return {
+                count:0
+            }
+        })
     }
     render(){
         return(
             <div>
-                <h1>Count :</h1>
+                <h1>Count : {this.state.count}</h1>
                 <button onClick={this.addClickOne}>+1</button>
                 <button onClick={this.minusClickOne}>-1</button>
                 <button onClick={this.reset}>reset</button>
