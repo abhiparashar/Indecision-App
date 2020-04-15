@@ -1,10 +1,10 @@
-var app = {
+const app = {
     Title:"Indecision App",
     subTitle:"Put your life in the hands of computer",
     options:['one','two']
 }
 //jsx - javascript XML
-var template = (
+const template = (
 <div>
     <h1>{app.Title}</h1>
     {app.subTitle && <p>{app.subTitle}</p>}
@@ -15,7 +15,7 @@ var template = (
     </ol>
 </div>)
 
-var user = {
+const user = {
 userName : '',
 userAge : '18',
 userLocation : ''
@@ -29,13 +29,39 @@ const getLocation = (userLocation)=>{
     }
 }
 
-var templateTwo = (
+const templateTwo = (
 <div>
     <h1>Name :{user.userName ? user.userName : 'Someone from USA '}</h1>
     {(user.userAge && user.userAge >= 18) && <p>Age:{user.userAge}</p>}
     {getLocation(user.userLocation)}
 </div>)
 
-var appRoot = document.getElementById('app')
+let count = 0
+const addOne = () => {
+    count++;
+    renderCounterApp()
+}
+const minusOne = () =>{
+    count--;
+    renderCounterApp()
+}
+const reset = () =>{
+    count=0;
+    renderCounterApp()
+}
 
-ReactDOM.render(template, appRoot)
+const appRoot = document.getElementById('app')
+
+const renderCounterApp = () =>{
+    const templateThree = (
+        <div>
+            <h1>count:{count}</h1>
+            <button onClick={addOne}>+1</button>
+            <button onClick={minusOne}>-1</button>
+            <button onClick={reset}>reset</button>
+        </div>
+    )
+    ReactDOM.render(templateThree, appRoot)
+}
+renderCounterApp()
+
